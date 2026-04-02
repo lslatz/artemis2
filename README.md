@@ -4,7 +4,7 @@ A browser-based, visual, shareable prototype focused on **evidence provenance** 
 
 ## Quick start
 
-Open `/home/runner/work/artemis2/artemis2/index.html` in a browser.
+Open `./index.html` in a browser.
 
 No build step is required.
 

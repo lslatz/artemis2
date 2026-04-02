@@ -100,7 +100,8 @@ export const sourceInventory = [
   },
   {
     id: "s-wikipedia-contrast",
-    title: "Wikipedia summary entry used for contradiction check",
+    title: "Artemis 2 - Wikipedia",
+    purpose: "Used as a lower-reliability contrast source for contradiction checks.",
     type: "Community summary",
     url: "https://en.wikipedia.org/wiki/Artemis_2",
     retrievedAt: "2026-03-22",

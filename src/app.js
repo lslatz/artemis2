@@ -283,8 +283,18 @@ function trustChecks() {
 
   const duplicates = [];
   const seen = new Map();
+  const normalizeUrlKey = (rawUrl) => {
+    try {
+      const parsed = new URL(rawUrl);
+      const host = parsed.hostname.replace(/^www\./i, "").toLowerCase();
+      const path = parsed.pathname.toLowerCase().replace(/\/+$/, "");
+      return `${host}${path}`;
+    } catch {
+      return rawUrl.toLowerCase().replace(/\/+$/, "");
+    }
+  };
   for (const src of sourceInventory) {
-    const key = src.url.toLowerCase().replace(/\/+$/, "");
+    const key = normalizeUrlKey(src.url);
     if (seen.has(key)) {
       duplicates.push([seen.get(key), src.id]);
     } else {
@@ -313,7 +323,7 @@ function renderTrustAndLaunch() {
       text: `Duplicate source detection (${checks.duplicates.length} duplicate pairs)`,
     },
     {
-      ok: checks.manualReview.length > 0,
+      ok: checks.manualReview.length === 0,
       text: `Manual review queue (${checks.manualReview.length} ambiguous claims)`,
     },
   ];
