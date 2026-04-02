@@ -1,0 +1,153 @@
+:root {
+  --bg: #0e1116;
+  --panel: #171d27;
+  --text: #e6edf3;
+  --muted: #9db1c9;
+  --accent: #5bc0ff;
+  --good: #7ee787;
+  --warn: #f2cc60;
+  --bad: #ff7b72;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.app-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #263041;
+}
+
+h1 {
+  margin: 0 0 0.3rem;
+  font-size: 1.35rem;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 1.05rem;
+}
+
+.subtitle,
+.disclaimer {
+  margin: 0.15rem 0;
+  color: var(--muted);
+}
+
+.layout {
+  display: grid;
+  gap: 0.9rem;
+  padding: 0.9rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid #273244;
+  border-radius: 10px;
+  padding: 0.9rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: var(--muted);
+}
+
+select {
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.45rem;
+  background: #10161f;
+  border: 1px solid #33435c;
+  color: var(--text);
+  border-radius: 8px;
+}
+
+#graph {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  background: #0a0f16;
+  border: 1px solid #2b3a50;
+}
+
+.claims-list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.claim-button {
+  width: 100%;
+  text-align: left;
+  padding: 0.55rem;
+  border: 1px solid #32425a;
+  border-radius: 8px;
+  background: #111827;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.claim-button.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent) inset;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.76rem;
+  padding: 0.14rem 0.4rem;
+  border-radius: 999px;
+  margin-right: 0.35rem;
+}
+
+.badge.high {
+  background: color-mix(in oklab, var(--good) 24%, transparent);
+  color: var(--good);
+}
+
+.badge.medium {
+  background: color-mix(in oklab, var(--warn) 22%, transparent);
+  color: var(--warn);
+}
+
+.badge.low {
+  background: color-mix(in oklab, var(--bad) 20%, transparent);
+  color: var(--bad);
+}
+
+.source-card {
+  border: 1px solid #30405a;
+  border-radius: 8px;
+  padding: 0.55rem;
+  margin-top: 0.45rem;
+  background: #0f1520;
+}
+
+.source-card.contradict {
+  border-color: #734246;
+}
+
+a {
+  color: var(--accent);
+}
+
+ul {
+  padding-left: 1.05rem;
+  margin-bottom: 0;
+}
+
+li.ok {
+  color: var(--good);
+}
+
+li.warn {
+  color: var(--warn);
+}

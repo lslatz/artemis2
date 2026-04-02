@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artemis II Knowledge Provenance Atlas</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Artemis II Knowledge Provenance Atlas</h1>
+      <p class="subtitle">
+        Browser-based, visual, shareable exploration of public Artemis II claims and evidence.
+      </p>
+      <p class="disclaimer">
+        Disclaimer: This prototype is for educational interpretation of public sources, not operational
+        NASA mission truth.
+      </p>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <h2>Filters</h2>
+        <label>
+          Topic
+          <select id="filter-topic"></select>
+        </label>
+        <label>
+          Minimum Confidence
+          <select id="filter-confidence">
+            <option value="0">All</option>
+            <option value="1">Low+</option>
+            <option value="2">Medium+</option>
+            <option value="3">High</option>
+          </select>
+        </label>
+        <label>
+          Source Type
+          <select id="filter-source-type"></select>
+        </label>
+        <label>
+          Recency
+          <select id="filter-recency">
+            <option value="all">All time</option>
+            <option value="2y">Last 2 years</option>
+            <option value="1y">Last year</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="panel">
+        <h2>Visual Graph</h2>
+        <svg id="graph" viewBox="0 0 980 520" role="img" aria-label="Claim source graph"></svg>
+      </section>
+
+      <section class="panel">
+        <h2>Claims</h2>
+        <div id="claims-list" class="claims-list"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Claim Detail</h2>
+        <div id="claim-detail" class="claim-detail">
+          Select a claim to inspect supporting and contradicting evidence.
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Quality & Trust Controls</h2>
+        <ul id="trust-list"></ul>
+      </section>
+
+      <section class="panel">
+        <h2>Launch Checklist</h2>
+        <ul id="launch-checklist"></ul>
+      </section>
+    </main>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
