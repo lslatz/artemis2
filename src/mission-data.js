@@ -147,7 +147,7 @@ export const PHASES = [
       "Two loops around Earth while the crew verifies every spacecraft system. This is the last chance to abort before committing to the Moon.",
     events: [
       {
-        id: "e2-nav",
+        id: "e3-nav",
         severity: "advisory",
         title: "NAVIGATION SYSTEM — STAR TRACKER CALIBRATION",
         text: "Victor Glover reports the star tracker needs recalibration prior to TLI. The star tracker is critical for deep-space navigation. GPS coverage ends around 36,000 km altitude. How does Orion primarily navigate in deep space?",
@@ -168,7 +168,7 @@ export const PHASES = [
         points: 100,
       },
       {
-        id: "e2-tli-timing",
+        id: "e3-tli-timing",
         severity: "critical",
         title: "TLI BURN WINDOW — GO / NO-GO POLL",
         text: "All four crew members are GO. The ICPS is fully fueled. Mission rules require the TLI burn to happen at the correct orbital position or the free-return trajectory won't align. When should TLI occur?",
@@ -201,7 +201,7 @@ export const PHASES = [
       "The ICPS engine burns for 6 minutes and 30 seconds. Orion breaks free of Earth orbit. Speed: 39,000 km/h. Destination: the Moon.",
     events: [
       {
-        id: "e3-freereturn",
+        id: "e4-freereturn",
         severity: "routine",
         title: "FREE-RETURN TRAJECTORY CONFIRMED",
         text: "TLI burn is nominal — trajectory confirmed. Orion is now on a free-return path. If every propulsion system failed completely right now, what happens to the crew?",
@@ -222,7 +222,7 @@ export const PHASES = [
         points: 100,
       },
       {
-        id: "e3-transit",
+        id: "e4-transit",
         severity: "routine",
         title: "CREW BROADCAST — EDUCATIONAL QUESTIONS",
         text: "Christina Koch is hosting a live educational broadcast for schools worldwide. A student asks: approximately how long does the journey from Earth to the Moon take?",
@@ -249,7 +249,7 @@ export const PHASES = [
       "Three days in the void. The crew watches Earth shrink behind them and the Moon grow ahead. Deep space: no GPS, no ISS lifeboat, no rescue.",
     events: [
       {
-        id: "e4-impact",
+        id: "e5-impact",
         severity: "critical",
         title: "⚠ MICROMETEORITE IMPACT DETECTED",
         text: "Day 2: Structural sensors detect a micrometeorite impact on Orion's service module. Impact diameter: 0.8 mm. Orion's design tolerance is 10 mm. No pressure leak detected. No structural compromise. The impact is stable.",
@@ -273,7 +273,7 @@ export const PHASES = [
         points: 150,
       },
       {
-        id: "e4-distance",
+        id: "e5-distance",
         severity: "advisory",
         title: "COMMUNICATIONS DELAY — RANGE ESTIMATE",
         text: "Day 3: Mission Control measures a round-trip comms delay of ~2.56 seconds. Wiseman asks how far from Earth Orion is. At the speed of light (300,000 km/s), a 1.28-second one-way delay means Orion is approximately…",
@@ -300,7 +300,7 @@ export const PHASES = [
       "The Moon fills the windows. For the first time since Apollo 17 in December 1972, four humans are this close to another world.",
     events: [
       {
-        id: "e5-approach",
+        id: "e6-approach",
         severity: "critical",
         title: "⚠ CLOSEST APPROACH — TRAJECTORY DECISION",
         text: "Orion is closing on the Moon. Planned closest approach: 8,900 km. A trajectory update could bring Orion to 5,000 km for better views, but it would consume reserve fuel and slightly perturbs the return trajectory. Jeremy Hansen is requesting the closer pass.",
@@ -327,7 +327,7 @@ export const PHASES = [
         points: 200,
       },
       {
-        id: "e5-farside",
+        id: "e6-farside",
         severity: "advisory",
         title: "FAR-SIDE OBSERVATION WINDOW",
         text: "Orion passes around the lunar far side — the first humans to see this view since Apollo 17. The mission plan allows 12 minutes of observation. Jeremy Hansen requests 25 minutes for photography and crew morale. The return burn window is time-critical.",
@@ -363,7 +363,7 @@ export const PHASES = [
       "Heading home. Four days coasting back toward the pale blue dot. Earth grows larger with every passing hour.",
     events: [
       {
-        id: "e6-media",
+        id: "e7-media",
         severity: "advisory",
         title: "PUBLIC CONCERN — HEAT SHIELD RUMOR",
         text: "Day 7: A viral social media post claims Orion's heat shield has an undetected crack. Public concern spikes and media request comment. Your telemetry shows heat shield temperatures, pressures, and structural sensors are completely nominal.",
@@ -387,7 +387,7 @@ export const PHASES = [
         points: 100,
       },
       {
-        id: "e6-fatigue",
+        id: "e7-fatigue",
         severity: "advisory",
         title: "CREW FATIGUE ASSESSMENT",
         text: "Day 8: The crew reports fatigue and mild space adaptation syndrome (space sickness). Commander Wiseman rates crew operational capacity at 85%. Mission rules require a minimum of 75% crew capability to proceed with re-entry. What is your call?",
@@ -423,7 +423,7 @@ export const PHASES = [
       "Earth's atmosphere closes in. Orion hits the upper atmosphere at 40,000 km/h — 32 times the speed of sound. Temperatures outside reach 2,760°C. Everything comes down to the next few minutes.",
     events: [
       {
-        id: "e7-angle",
+        id: "e8-angle",
         severity: "critical",
         title: "⚠ ENTRY ANGLE ASSESSMENT",
         text: "Orion is targeting a -5.5° entry angle. Too shallow and it skips off the atmosphere; too steep and it burns up. Your guidance officer reports sensors read -5.3°. The flight rules tolerance is ±0.5° of the target angle.",
@@ -447,7 +447,7 @@ export const PHASES = [
         points: 200,
       },
       {
-        id: "e7-chutes",
+        id: "e8-chutes",
         severity: "routine",
         title: "PARACHUTE DEPLOYMENT — NOMINAL",
         text: "Drogue chutes deployed. Main parachutes deployed — all three confirmed open. Orion is descending at 8 m/s. Recovery ships USS San Diego and MV Horizon Star are on station in the Pacific. Your final command as Flight Director:",

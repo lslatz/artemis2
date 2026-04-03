@@ -423,7 +423,7 @@ body {
 .title-bg {
   position: absolute;
   inset: 0;
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/1200px-The_Earth_seen_from_Apollo_17.jpg");
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/300px-The_Earth_seen_from_Apollo_17.jpg");
   background-size: cover;
   background-position: center 25%;
   opacity: 0.10;
