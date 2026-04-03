@@ -3,79 +3,147 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Artemis II Knowledge Provenance Atlas</title>
+    <title>Artemis II: Mission Control</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <header class="app-header">
-      <h1>Artemis II Knowledge Provenance Atlas</h1>
-      <p class="subtitle">
-        Browser-based, visual, shareable exploration of public Artemis II claims and evidence.
-      </p>
-      <p class="disclaimer">
-        Disclaimer: This prototype is for educational interpretation of public sources, not operational
-        NASA mission truth.
-      </p>
-    </header>
+    <div class="starfield" id="starfield" aria-hidden="true"></div>
 
-    <main class="layout">
-      <section class="panel">
-        <h2>Filters</h2>
-        <label>
-          Topic
-          <select id="filter-topic"></select>
-        </label>
-        <label>
-          Minimum Confidence
-          <select id="filter-confidence">
-            <option value="0">All</option>
-            <option value="1">Low+</option>
-            <option value="2">Medium+</option>
-            <option value="3">High</option>
-          </select>
-        </label>
-        <label>
-          Source Type
-          <select id="filter-source-type"></select>
-        </label>
-        <label>
-          Recency
-          <select id="filter-recency">
-            <option value="all">All time</option>
-            <option value="2y">Last 2 years</option>
-            <option value="1y">Last year</option>
-          </select>
-        </label>
-      </section>
-
-      <section class="panel">
-        <h2>Visual Graph</h2>
-        <svg id="graph" viewBox="0 0 980 520" role="img" aria-label="Claim source graph"></svg>
-      </section>
-
-      <section class="panel">
-        <h2>Claims</h2>
-        <div id="claims-list" class="claims-list"></div>
-      </section>
-
-      <section class="panel">
-        <h2>Claim Detail</h2>
-        <div id="claim-detail" class="claim-detail">
-          Select a claim to inspect supporting and contradicting evidence.
+    <!-- Title Screen -->
+    <div id="screen-title" class="screen active">
+      <!-- NASA Earth "Blue Marble" (public domain) as subtle background -->
+      <div class="title-bg" aria-hidden="true"></div>
+      <div class="title-content">
+        <div class="title-badge">&#x1F319;</div>
+        <h1 class="game-title">ARTEMIS&nbsp;II</h1>
+        <h2 class="game-subtitle">Mission Control Simulator</h2>
+        <p class="game-intro">
+          You are the NASA Flight Director. Guide four astronauts on humanity's first
+          crewed journey around the Moon in over 50 years. Make the calls &mdash; every
+          decision matters.
+        </p>
+        <div class="crew-roster">
+          <div class="crew-card">
+            <div class="crew-icon">&#x1F9D1;&#x200D;&#x1F680;</div>
+            <div class="crew-name">Reid Wiseman</div>
+            <div class="crew-role">Commander</div>
+          </div>
+          <div class="crew-card">
+            <div class="crew-icon">&#x1F9D1;&#x200D;&#x1F680;</div>
+            <div class="crew-name">Victor Glover</div>
+            <div class="crew-role">Pilot</div>
+          </div>
+          <div class="crew-card">
+            <div class="crew-icon">&#x1F469;&#x200D;&#x1F680;</div>
+            <div class="crew-name">Christina Koch</div>
+            <div class="crew-role">Mission Specialist 1</div>
+          </div>
+          <div class="crew-card">
+            <div class="crew-icon">&#x1F9D1;&#x200D;&#x1F680;</div>
+            <div class="crew-name">Jeremy Hansen</div>
+            <div class="crew-role">Mission Specialist 2</div>
+          </div>
         </div>
-      </section>
+        <button id="btn-start" class="btn-primary btn-big">&#x25B6;&nbsp; INITIATE MISSION</button>
+        <p class="small-print">
+          Educational simulator &middot; Based on public NASA data &middot; Not operational mission truth
+        </p>
+      </div>
+    </div>
 
-      <section class="panel">
-        <h2>Quality & Trust Controls</h2>
-        <ul id="trust-list"></ul>
-      </section>
+    <!-- Game Screen -->
+    <div id="screen-game" class="screen">
+      <div class="hud-bar">
+        <div class="hud-cell">
+          <span class="hud-lbl">PHASE</span>
+          <span id="hud-phase" class="hud-val">&#x2014;</span>
+        </div>
+        <div class="hud-cell">
+          <span class="hud-lbl">MISSION DAY</span>
+          <span id="hud-day" class="hud-val">0</span>
+        </div>
+        <div class="hud-cell hud-health-cell">
+          <span class="hud-lbl">MISSION HEALTH</span>
+          <div class="health-track">
+            <div id="health-fill" class="health-fill health-ok" style="width:100%"></div>
+          </div>
+          <span id="health-pct" class="hud-val">100%</span>
+        </div>
+        <div class="hud-cell">
+          <span class="hud-lbl">SCORE</span>
+          <span id="hud-score" class="hud-val score-val">0</span>
+        </div>
+        <div class="hud-cell">
+          <span class="hud-lbl">STATUS</span>
+          <span id="hud-status" class="hud-val status-nominal">NOMINAL</span>
+        </div>
+      </div>
 
-      <section class="panel">
-        <h2>Launch Checklist</h2>
-        <ul id="launch-checklist"></ul>
-      </section>
-    </main>
+      <div class="game-body">
+        <div class="left-col">
+          <!-- Orbital mechanics canvas — replaces flat SVG trajectory map -->
+          <div class="panel orbit-panel">
+            <div class="panel-title" id="orbit-panel-title">ORBITAL MECHANICS</div>
+            <canvas
+              id="orbit-canvas"
+              width="400"
+              height="310"
+              aria-label="Orbital mechanics visualization — Earth, Moon, and spacecraft trajectory"
+            ></canvas>
+          </div>
+          <div class="panel crew-panel">
+            <div class="panel-title">CREW STATUS</div>
+            <div id="crew-status" class="crew-status-grid">
+              <div class="crew-stat-row"><span class="crew-stat-name">Wiseman</span><span class="crew-stat-badge ok">OK</span></div>
+              <div class="crew-stat-row"><span class="crew-stat-name">Glover</span><span class="crew-stat-badge ok">OK</span></div>
+              <div class="crew-stat-row"><span class="crew-stat-name">Koch</span><span class="crew-stat-badge ok">OK</span></div>
+              <div class="crew-stat-row"><span class="crew-stat-name">Hansen</span><span class="crew-stat-badge ok">OK</span></div>
+            </div>
+          </div>
+        </div>
 
-    <script type="module" src="./src/app.js"></script>
+        <div class="right-col">
+          <div id="event-panel" class="panel event-panel">
+            <div class="panel-title" id="event-panel-title">MISSION EVENTS</div>
+            <div id="event-body" class="event-body">
+              <p class="standby-msg">Systems nominal. Awaiting mission events&#x2026;</p>
+            </div>
+          </div>
+          <div class="panel log-panel">
+            <div class="panel-title">FLIGHT LOG</div>
+            <div id="flight-log" class="flight-log"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase Transition Overlay -->
+      <div id="phase-overlay" class="overlay hidden">
+        <div class="phase-card">
+          <div class="phase-number" id="overlay-num">01</div>
+          <div class="phase-name" id="overlay-name">PHASE NAME</div>
+          <div class="phase-desc" id="overlay-desc"></div>
+          <div class="phase-day" id="overlay-day"></div>
+          <button id="btn-continue" class="btn-primary">CONTINUE &#x25B6;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- End Screen -->
+    <div id="screen-end" class="screen">
+      <div class="end-content">
+        <div id="end-icon" class="end-icon">&#x1F389;</div>
+        <h1 id="end-title">Mission Complete</h1>
+        <p id="end-subtitle" class="end-subtitle"></p>
+        <div class="final-score-card">
+          <div class="fsc-label">Flight Director Score</div>
+          <div id="final-score" class="fsc-value">0</div>
+          <div id="final-rank" class="fsc-rank"></div>
+        </div>
+        <div id="end-decisions" class="end-decisions"></div>
+        <button id="btn-replay" class="btn-primary btn-big">&#x21BA;&nbsp; FLY AGAIN</button>
+      </div>
+    </div>
+
+    <script type="module" src="./src/game.js"></script>
   </body>
 </html>
