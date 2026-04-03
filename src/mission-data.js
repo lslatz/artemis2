@@ -96,6 +96,51 @@ export const PHASES = [
   },
   {
     id: 2,
+    name: "ORBITAL MECHANICS & TLI BURNS",
+    day: "Mission Day 0–1 — Parking Orbit",
+    description:
+      "Orion circles Earth in a 170 km parking orbit. Before committing to the Moon, the crew reviews the burn plan. One precise engine firing — a Hohmann transfer — separates low Earth orbit from lunar destiny.",
+    events: [
+      {
+        id: "e2-hohmann",
+        severity: "routine",
+        title: "BURN MECHANICS BRIEFING",
+        text: "Victor Glover sketches the maneuver on his kneeboard: 'Adding velocity at periapsis — the closest point of the orbit — stretches the orbit outward at apoapsis.' This is the Hohmann transfer principle. If Orion fires its engine prograde (forward) at periapsis, what happens to the orbit shape?",
+        choices: [
+          { text: "The orbit remains circular — burns only change speed, not shape", correct: false },
+          { text: "The apoapsis rises while periapsis stays the same — the orbit becomes more elliptical", correct: true },
+          { text: "The periapsis drops — prograde burns always lower the orbit", correct: false },
+        ],
+        feedback: {
+          correct:
+            "Exactly right. A prograde burn at periapsis raises the apoapsis while leaving periapsis unchanged — making the orbit more elliptical. For TLI, one large prograde burn at periapsis stretches Orion's apoapsis from 170 km all the way to ~384,400 km — lunar distance.",
+          wrong:
+            "A prograde burn at periapsis raises the apoapsis while leaving periapsis unchanged. This is the Hohmann transfer principle: stretching the orbit into an ellipse. For TLI, one large burn extends the apoapsis from 170 km to ~384,400 km.",
+        },
+        points: 100,
+      },
+      {
+        id: "e2-deltav",
+        severity: "critical",
+        title: "TLI BURN AUTHORIZATION — DELTA-V REQUIRED",
+        text: "The ICPS is fueled and ready. Navigation has computed the required delta-v (velocity change) for the Trans-Lunar Injection burn. In LEO, Orion orbits at ~7.8 km/s. The TLI burn must add enough velocity to reach the Moon on a free-return trajectory. What is the approximate delta-v required for TLI?",
+        choices: [
+          { text: "~0.5 km/s — just a small nudge beyond LEO velocity", correct: false },
+          { text: "~3.2 km/s — raising total speed from ~7.8 to ~11 km/s", correct: true },
+          { text: "~8 km/s — matching Earth escape velocity", correct: false },
+        ],
+        feedback: {
+          correct:
+            "Correct. The TLI burn adds ~3.2 km/s to Orion's LEO orbital velocity of ~7.8 km/s, reaching ~11 km/s total. This is just below Earth escape velocity (~11.2 km/s) — enough to reach the Moon on the free-return trajectory without escaping Earth's gravity entirely.",
+          wrong:
+            "The TLI burn adds ~3.2 km/s to Orion's ~7.8 km/s LEO velocity. At ~11 km/s total speed, Orion is just below Earth escape velocity (~11.2 km/s) — perfectly tuned to reach the Moon and return on the free-return trajectory.",
+        },
+        points: 150,
+      },
+    ],
+  },
+  {
+    id: 3,
     name: "EARTH ORBIT & SYSTEMS CHECK",
     day: "Mission Day 0–1",
     description:
@@ -149,7 +194,7 @@ export const PHASES = [
     ],
   },
   {
-    id: 3,
+    id: 4,
     name: "TRANS-LUNAR INJECTION",
     day: "Mission Day 1",
     description:
@@ -197,7 +242,7 @@ export const PHASES = [
     ],
   },
   {
-    id: 4,
+    id: 5,
     name: "OUTBOUND COAST",
     day: "Mission Days 1–4",
     description:
@@ -248,7 +293,7 @@ export const PHASES = [
     ],
   },
   {
-    id: 5,
+    id: 6,
     name: "LUNAR FLYBY",
     day: "Mission Day 4–5",
     description:
@@ -311,7 +356,7 @@ export const PHASES = [
     ],
   },
   {
-    id: 6,
+    id: 7,
     name: "RETURN COAST",
     day: "Mission Days 5–9",
     description:
@@ -371,7 +416,7 @@ export const PHASES = [
     ],
   },
   {
-    id: 7,
+    id: 8,
     name: "RE-ENTRY & SPLASHDOWN",
     day: "Mission Day 10",
     description:

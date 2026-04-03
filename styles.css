@@ -417,3 +417,27 @@ body {
   .right-col { order: 1; }
   .hud-bar   { justify-content: center; }
 }
+
+/* ── Title Screen — NASA Earth background tint ───────────────────────────── */
+#screen-title { position: relative; }
+.title-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/1200px-The_Earth_seen_from_Apollo_17.jpg");
+  background-size: cover;
+  background-position: center 25%;
+  opacity: 0.10;
+  z-index: 0;
+  pointer-events: none;
+}
+.title-content { position: relative; z-index: 1; }
+
+/* ── Orbital mechanics canvas panel ─────────────────────────────────────── */
+.orbit-panel { display: flex; flex-direction: column; }
+#orbit-canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0 0 9px 9px;
+  background: #060d1f;
+}

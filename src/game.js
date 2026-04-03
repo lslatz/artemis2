@@ -3,6 +3,7 @@
  */
 
 import { PHASES } from "./mission-data.js";
+import { initOrbitViz, setOrbitPhase, destroyOrbitViz } from "./orbit-viz.js";
 
 // Seconds within which a correct answer earns a speed bonus
 const SPEED_BONUS_THRESHOLD_S = 8;
@@ -10,16 +11,18 @@ const SPEED_BONUS_THRESHOLD_S = 8;
 // Probability (0–1) that each crew member shows fatigue after a health penalty
 const CREW_FATIGUE_PROBABILITY = 0.4;
 
-// Spacecraft positions on the trajectory SVG for each phase
+// Spacecraft positions on the trajectory SVG — one entry per phase (9 phases)
+// (kept for the HUD phase label; actual visual is now the orbit canvas)
 const WAYPOINTS = [
   { x: 80,  y: 207 },  // 0: Pre-launch (on Earth)
   { x: 105, y: 195 },  // 1: Launch & Ascent
-  { x: 130, y: 183 },  // 2: Earth Orbit
-  { x: 168, y: 168 },  // 3: Trans-Lunar Injection
-  { x: 300, y: 112 },  // 4: Outbound Coast midpoint
-  { x: 500, y: 72  },  // 5: Lunar Flyby
-  { x: 355, y: 158 },  // 6: Return Coast midpoint
-  { x: 112, y: 215 },  // 7: Re-entry & Splashdown
+  { x: 118, y: 188 },  // 2: Orbital Mechanics & TLI Burns (new)
+  { x: 130, y: 183 },  // 3: Earth Orbit & Systems Check
+  { x: 168, y: 168 },  // 4: Trans-Lunar Injection
+  { x: 300, y: 112 },  // 5: Outbound Coast midpoint
+  { x: 500, y: 72  },  // 6: Lunar Flyby
+  { x: 355, y: 158 },  // 7: Return Coast midpoint
+  { x: 112, y: 215 },  // 8: Re-entry & Splashdown
 ];
 
 const state = {
@@ -88,13 +91,13 @@ function updateHUD() {
   }
 }
 
-// ── Spacecraft animation ─────────────────────────────────────────────────────
+// ── Spacecraft / orbit visualization ─────────────────────────────────────────
 function moveCraft(phaseIdx) {
-  const pt   = WAYPOINTS[Math.min(phaseIdx, WAYPOINTS.length - 1)];
-  const craft = el("craft");
-  if (craft) {
-    craft.setAttribute("cx", pt.x);
-    craft.setAttribute("cy", pt.y);
+  setOrbitPhase(phaseIdx);
+  // Update orbit panel title to reflect current view
+  const panel = el("orbit-panel-title");
+  if (panel) {
+    panel.textContent = phaseIdx < 5 ? "ORBITAL MECHANICS" : "MISSION MAP";
   }
 }
 
@@ -340,6 +343,8 @@ function endGame() {
 }
 
 // ── Init ─────────────────────────────────────────────────────────────────────
+let _orbitVizStarted = false;
+
 function initGame() {
   state.phase    = 0;
   state.eventIdx = 0;
@@ -360,6 +365,18 @@ function initGame() {
   }
 
   showScreen($game);
+
+  // Start (or restart) the orbital mechanics canvas
+  const orbitCanvas = el("orbit-canvas");
+  if (orbitCanvas) {
+    if (_orbitVizStarted) {
+      destroyOrbitViz();
+    }
+    initOrbitViz(orbitCanvas);
+    _orbitVizStarted = true;
+    setOrbitPhase(0, false); // no animation on first show
+  }
+
   showPhaseOverlay(0);
 
   logEntry("🚀 Artemis II Mission Control — all systems GO", "good");

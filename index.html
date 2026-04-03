@@ -11,8 +11,10 @@
 
     <!-- Title Screen -->
     <div id="screen-title" class="screen active">
+      <!-- NASA Earth "Blue Marble" (public domain) as subtle background -->
+      <div class="title-bg" aria-hidden="true"></div>
       <div class="title-content">
-        <div class="title-badge">🌙</div>
+        <div class="title-badge">&#x1F319;</div>
         <h1 class="game-title">ARTEMIS&nbsp;II</h1>
         <h2 class="game-subtitle">Mission Control Simulator</h2>
         <p class="game-intro">
@@ -79,20 +81,15 @@
 
       <div class="game-body">
         <div class="left-col">
-          <div class="panel traj-panel">
-            <div class="panel-title">MISSION TRAJECTORY</div>
-            <svg id="traj-svg" viewBox="0 0 600 280" role="img" aria-label="Mission trajectory map">
-              <rect width="600" height="280" fill="#060d1f"/>
-              <circle cx="75" cy="210" r="26" fill="#1a3a6e" stroke="#4488cc" stroke-width="1.5"/>
-              <text x="75" y="252" text-anchor="middle" fill="#88bbee" font-size="10" font-family="monospace">EARTH</text>
-              <circle cx="518" cy="75" r="17" fill="#44444a" stroke="#999" stroke-width="1.5"/>
-              <text x="518" y="108" text-anchor="middle" fill="#aaa" font-size="10" font-family="monospace">MOON</text>
-              <path d="M 100,198 C 210,165 380,50 502,68" fill="none" stroke="#4488cc" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.55"/>
-              <path d="M 502,84 C 380,178 220,233 104,218" fill="none" stroke="#f97316" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.55"/>
-              <circle id="craft" cx="75" cy="210" r="5" fill="#ffffff" stroke="#60c8ff" stroke-width="2.5">
-                <animate attributeName="r" values="5;6.5;5" dur="1.6s" repeatCount="indefinite"/>
-              </circle>
-            </svg>
+          <!-- Orbital mechanics canvas — replaces flat SVG trajectory map -->
+          <div class="panel orbit-panel">
+            <div class="panel-title" id="orbit-panel-title">ORBITAL MECHANICS</div>
+            <canvas
+              id="orbit-canvas"
+              width="400"
+              height="310"
+              aria-label="Orbital mechanics visualization — Earth, Moon, and spacecraft trajectory"
+            ></canvas>
           </div>
           <div class="panel crew-panel">
             <div class="panel-title">CREW STATUS</div>
