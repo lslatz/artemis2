@@ -20,7 +20,7 @@ const state = {
   health: 100,
   timerInterval: null,
   timerStart: 0,
-  timerDuration: 20,
+  timerDuration: 120,
   answering: false,
   decisions: [],
 };
@@ -101,18 +101,26 @@ function logEntry(text, type = "info") {
 }
 
 // ── Timer ────────────────────────────────────────────────────────────────────
-function startTimer(duration = 20) {
+function startTimer(duration = 120) {
   clearInterval(state.timerInterval);
   state.timerStart    = Date.now();
   state.timerDuration = duration;
 
   state.timerInterval = setInterval(() => {
-    const elapsed = (Date.now() - state.timerStart) / 1000;
-    const pct     = Math.max(0, (1 - elapsed / duration) * 100);
-    const bar     = el("timer-bar");
+    const elapsed   = (Date.now() - state.timerStart) / 1000;
+    const remaining = Math.max(0, duration - elapsed);
+    const pct       = (remaining / duration) * 100;
+    const bar       = el("timer-bar");
+    const countdown = el("timer-countdown");
     if (bar) {
       bar.style.width = `${pct}%`;
       bar.className   = `timer-bar ${pct > 50 ? "timer-ok" : pct > 25 ? "timer-warn" : "timer-crit"}`;
+    }
+    if (countdown) {
+      const mins = Math.floor(remaining / 60);
+      const secs = Math.floor(remaining % 60);
+      countdown.textContent = `${mins}:${String(secs).padStart(2, "0")}`;
+      countdown.className   = `timer-countdown ${pct > 50 ? "timer-ok" : pct > 25 ? "timer-warn" : "timer-crit"}`;
     }
     if (elapsed >= duration) {
       clearInterval(state.timerInterval);
@@ -170,7 +178,7 @@ function showNextEvent() {
 
   renderEvent(phase.events[state.eventIdx]);
   state.answering = true;
-  startTimer(20);
+  startTimer(120);
 }
 
 function renderEvent(event) {
@@ -183,8 +191,11 @@ function renderEvent(event) {
         <div class="event-severity-label">${event.severity.toUpperCase()}</div>
         <div class="event-title">${event.title}</div>
         <div class="event-text">${event.text}</div>
-        <div class="timer-track">
-          <div id="timer-bar" class="timer-bar timer-ok" style="width:100%"></div>
+        <div class="timer-wrap">
+          <div class="timer-track">
+            <div id="timer-bar" class="timer-bar timer-ok" style="width:100%"></div>
+          </div>
+          <span id="timer-countdown" class="timer-countdown timer-ok">2:00</span>
         </div>
         <div class="choices">
           ${event.choices.map((c, i) => `
