@@ -286,14 +286,13 @@ function showFeedback(event, correct, timedOut, choiceIdx, pts, speedBonus) {
 
   const banner = document.createElement("div");
   banner.className = `feedback-banner ${correct ? "feedback-correct" : "feedback-wrong"}`;
-  banner.innerHTML = `<strong>${icon} ${title}</strong><p>${bodyText}</p>${ptsBadge}`;
+  banner.innerHTML = `<strong>${icon} ${title}</strong><p>${bodyText}</p>${ptsBadge}<button class="continue-btn">Continue →</button>`;
   if (cardEl) cardEl.appendChild(banner);
 
-  // Advance after a short pause
-  setTimeout(() => {
+  banner.querySelector(".continue-btn").addEventListener("click", () => {
     state.eventIdx++;
     showNextEvent();
-  }, 3200);
+  });
 }
 
 // ── End screen ───────────────────────────────────────────────────────────────
