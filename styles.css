@@ -319,18 +319,26 @@ body {
 .feedback-banner p { margin: 0.3rem 0 0; color: #aac0da; line-height: 1.5; }
 .continue-btn {
   display: block;
-  margin-top: 0.65rem;
-  padding: 0.32rem 0.9rem;
-  background: rgba(255,255,255,0.07);
-  color: #c8daf0;
-  border: 1px solid rgba(255,255,255,0.22);
-  border-radius: 5px;
-  font-size: 0.82rem;
+  margin-top: 0.9rem;
+  padding: 0.55rem 1.4rem;
+  background: linear-gradient(135deg, #1a4a9a, #0d2d6e);
+  color: #fff;
+  border: 1px solid rgba(68,153,255,0.55);
+  border-radius: 7px;
+  font-size: 0.9rem;
   font-family: var(--mono);
+  font-weight: 700;
+  letter-spacing: 0.05em;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: all 0.18s;
+  box-shadow: 0 0 14px rgba(68,153,255,0.35);
 }
-.continue-btn:hover { background: rgba(255,255,255,0.15); }
+.continue-btn:hover {
+  background: linear-gradient(135deg, #2255b5, #1038a0);
+  box-shadow: 0 0 24px rgba(68,153,255,0.6);
+  transform: translateY(-1px);
+}
+.continue-btn:active { transform: translateY(0); }
 
 .pts-badge {
   display: inline-block;
