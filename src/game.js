@@ -4,6 +4,12 @@
 
 import { PHASES } from "./mission-data.js";
 
+// Seconds within which a correct answer earns a speed bonus
+const SPEED_BONUS_THRESHOLD_S = 8;
+
+// Probability (0–1) that each crew member shows fatigue after a health penalty
+const CREW_FATIGUE_PROBABILITY = 0.4;
+
 // Spacecraft positions on the trajectory SVG for each phase
 const WAYPOINTS = [
   { x: 80,  y: 207 },  // 0: Pre-launch (on Earth)
@@ -97,7 +103,7 @@ function logEntry(text, type = "info") {
   const log = el("flight-log");
   const entry = document.createElement("div");
   entry.className = `log-entry log-${type}`;
-  const t = new Date().toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  const t = new Date().toISOString().replace("T", " ").substring(0, 19) + " UTC";
   entry.innerHTML = `<span class="log-time">${t}</span> ${text}`;
   log.prepend(entry);
   while (log.children.length > 20) log.removeChild(log.lastChild);
@@ -225,7 +231,7 @@ function handleChoice(choiceIdx) {
   let speedBonus = false;
   if (correct) {
     pts = event.points;
-    if (elapsed < 8) { pts += 50; speedBonus = true; }
+    if (elapsed < SPEED_BONUS_THRESHOLD_S) { pts += 50; speedBonus = true; }
     state.score += pts;
     logEntry(`✓ ${event.title}: correct call (+${pts} pts)`, "good");
   } else {
@@ -245,7 +251,7 @@ function applyPenalty(amount) {
     logEntry("⚠ MISSION HEALTH CRITICAL", "warn");
     // Visually flag crew as fatigued
     for (const badge of document.querySelectorAll(".crew-stat-badge")) {
-      if (Math.random() > 0.4) { badge.textContent = "FATIGUED"; badge.className = "crew-stat-badge warn"; }
+      if (Math.random() > CREW_FATIGUE_PROBABILITY) { badge.textContent = "FATIGUED"; badge.className = "crew-stat-badge warn"; }
     }
   }
 }
