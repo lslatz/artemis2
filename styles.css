@@ -261,9 +261,12 @@ body {
 .timer-track   { flex: 1; height: 4px; background: #0a1525; border-radius: 2px; overflow: hidden; border: 1px solid var(--panel-border); }
 .timer-bar     { height: 100%; border-radius: 2px; transition: width 0.1s linear, background 0.45s; }
 .timer-countdown { font-size: 0.75rem; font-family: var(--mono); font-weight: 700; min-width: 2.5rem; text-align: right; transition: color 0.45s; }
-.timer-ok   { background: var(--green); color: var(--green); }
-.timer-warn { background: var(--yellow); color: var(--yellow); }
-.timer-crit { background: var(--red); color: var(--red); }
+.timer-ok   { color: var(--green); }
+.timer-warn { color: var(--yellow); }
+.timer-crit { color: var(--red); }
+.timer-bar.timer-ok   { background: var(--green); }
+.timer-bar.timer-warn { background: var(--yellow); }
+.timer-bar.timer-crit { background: var(--red); }
 
 /* Choices */
 .choices { display: grid; gap: 0.45rem; }
